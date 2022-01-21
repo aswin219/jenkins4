@@ -1,7 +1,8 @@
 pipeline {
     environment {
-        registry = "registry.hub.docker.com/aswinmkolathur/jenkins4"
-        dockerImage = 'flask-app' 
+        registry = "aswinmkolathur/jenkins4"
+        registryCredential = 'dockerhub_id'
+        dockerImage = '' 
     }
     agent any
     
@@ -22,7 +23,7 @@ pipeline {
         stage('Deploy our image') { 
             steps { 
                 script { 
-                    docker.withRegistry( 'https://registry.hub.docker.com', 'dockerhub_id' ) { 
+                    docker.withRegistry( '', registryCredential ) { 
                         dockerImage.push() 
                     }
                 } 
