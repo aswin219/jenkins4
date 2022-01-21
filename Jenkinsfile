@@ -1,14 +1,14 @@
 pipeline {
     environment {
-        registry = "YourDockerhubAccount/YourRepository" 
+        registry = "aswinmkolathur/aswinm" 
         registryCredential = 'dockerhub_id' 
-        dockerImage = '' 
+        dockerImage = 'flask-app' 
     }
     agent any 
     stages { 
         stage('Cloning our Git') { 
             steps { 
-                git 'https://github.com/YourGithubAccount/YourGithubRepository.git' 
+                git 'https://github.com/aswin219/jenkins4.git' 
             }
         } 
         stage('Building our image') { 
