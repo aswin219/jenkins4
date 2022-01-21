@@ -1,7 +1,9 @@
-node {
-	def app
-	def image = 'registry.hub.docker.com/aswinmkolathur/jenkins4'
-	def branch = 'main' 
+pipeline {
+    environment {
+        registry = "registry.hub.docker.com/aswinmkolathur/jenkins4"
+        dockerImage = 'flask-app' 
+    }
+    agent any
     
     stages { 
         stage('Cloning our Git') { 
@@ -15,7 +17,7 @@ node {
         stage('Building our image') { 
             steps { 
                 script { 
-                    dockerImage = docker.build image + ":$BUILD_NUMBER" 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
                 }
             } 
         }
