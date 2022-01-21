@@ -1,27 +1,28 @@
-pipeline {
-    environment {
-        registry = "registry.hub.docker.com/aswinmkolathur/jenkins4" 
-        registryCredential = 'dockerhub_id' 
-        dockerImage = 'flask-app' 
-    }
-    agent any 
+node {
+	def app
+	def image = 'registry.hub.docker.com/aswinmkolathur/jenkins4'
+	def branch = 'main' 
+    
     stages { 
         stage('Cloning our Git') { 
             steps { 
-                git 'https://github.com/aswin219/jenkins4.git' 
+                script {
+                    url: 'https://github.com/aswin219/jenkins4.git' 
+                }
             }
         } 
+        
         stage('Building our image') { 
             steps { 
                 script { 
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                    dockerImage = docker.build image + ":$BUILD_NUMBER" 
                 }
             } 
         }
         stage('Deploy our image') { 
             steps { 
                 script { 
-                    docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) { 
+                    docker.withRegistry( 'https://registry.hub.docker.com', 'dockerhub_id' ) { 
                         dockerImage.push() 
                     }
                 } 
