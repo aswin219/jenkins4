@@ -7,10 +7,8 @@ pipeline {
     
     stages { 
         stage('Cloning our Git') { 
-            steps { 
-                script {
-                    url: 'https://github.com/aswin219/jenkins4.git' 
-                }
+            steps {
+                    url: 'https://github.com/aswin219/jenkins4.git'                 
             }
         } 
         
